@@ -4,7 +4,7 @@ namespace MovieExtended.Models
 {
     public class File
     {
-        public File(Guid id, Uri filePath, FileType fileType)
+        public File(Guid? id, Uri filePath, FileType fileType)
         {
             Id = id;
             FilePath = filePath;
@@ -15,7 +15,7 @@ namespace MovieExtended.Models
         {
         }
 
-        public virtual Guid Id { get; protected set; } 
+        public virtual Guid? Id { get; protected set; } 
 
         public virtual Uri FilePath { get; protected set; }
 

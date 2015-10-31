@@ -37,6 +37,11 @@ namespace MovieExtended.Controllers.WebClient
         [HttpPost]
         public Guid Post([FromBody] Company company)
         {
+            if (company == null)
+            {
+                return Guid.Empty;
+            }
+
             var companyId = _session.Save(company);
             _session.Flush();
             return (Guid) companyId;

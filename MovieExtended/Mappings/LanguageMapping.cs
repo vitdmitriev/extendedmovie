@@ -14,15 +14,13 @@ namespace MovieExtended.Mappings
                 mapper.Generator(Generators.Guid);
             });
             Property(model => model.Name, mapper => mapper.Column("Name"));
-            ManyToOne(model => model.Movie, mapper =>
+            Property(model => model.MovieId, mapper =>
             {
-                mapper.Cascade(Cascade.All);
                 mapper.Column("MovieId");
             });
-            ManyToOne(model => model.TrackFile, mapper =>
+            Property(model => model.TrackFileId, mapper =>
             {
-                mapper.Cascade(Cascade.None);
-                mapper.Column("FileId");
+                mapper.Column("TrackFileId");
             });
         }
     }

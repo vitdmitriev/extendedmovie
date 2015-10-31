@@ -4,7 +4,7 @@ namespace MovieExtended.Models
 {
     public class Movie
     {
-        public Movie(Guid id, string name)
+        public Movie(Guid? id, string name)
         {
             Id = id;
             Name = name;
@@ -14,10 +14,10 @@ namespace MovieExtended.Models
         {
         }
 
-        public virtual Guid Id { get; protected set; }
+        public virtual Guid? Id { get; protected set; }
         
         public virtual string Name { get; protected set; }
         
-        public virtual Cinema Cinema { get; protected set; }
+        public virtual Guid CinemaId { get; protected set; }
     }
 }

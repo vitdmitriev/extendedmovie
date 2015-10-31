@@ -24,7 +24,7 @@ namespace MovieExtended.Controllers.WebClient
             {
                 return session
                     .Query<Movie>()
-                    .Where(movie => movie.Cinema.Id == cinemaId);
+                    .Where(movie => movie.CinemaId == cinemaId);
             }
         }
 
@@ -35,7 +35,7 @@ namespace MovieExtended.Controllers.WebClient
             {
                 return session
                     .Query<Movie>()
-                    .Where(movie => movie.Cinema.Id == cinemaId)
+                    .Where(movie => movie.CinemaId == cinemaId)
                     .SingleOrDefault(movie => movie.Id == movieId);
             }
         }

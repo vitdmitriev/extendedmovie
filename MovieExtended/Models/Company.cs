@@ -4,7 +4,7 @@ namespace MovieExtended.Models
 {
     public class Company
     {
-        public Company(Guid id, string name, Uri website, Uri photoUri)
+        public Company(Guid? id, string name, Uri website, Uri photoUri)
         {
             Id = id;
             Name = name;
@@ -17,7 +17,7 @@ namespace MovieExtended.Models
             
         }
 
-        public virtual Guid Id { get; protected set; } 
+        public virtual Guid? Id { get; protected set; } 
 
         public virtual string Name { get; protected set; }
 

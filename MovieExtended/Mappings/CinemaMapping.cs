@@ -15,10 +15,9 @@ namespace MovieExtended.Mappings
             });
             Property(model => model.Name, mapper => mapper.Column("Name"));
             Property(model => model.Address, mapper => mapper.Column("Address"));
-            ManyToOne(model => model.Company, mapper =>
+            Property(model => model.CompanyId, mapper =>
             {
                 mapper.Column("CompanyId");
-                mapper.Class(typeof(Company));
             });
         }
     }

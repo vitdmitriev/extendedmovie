@@ -17,11 +17,12 @@ namespace MovieExtended.Controllers.WebClient
             _session = session;
         }
 
+
         [Route("api/Companies/{companyId}/Cinemas")]
         public IEnumerable<Cinema> Get(Guid companyId)
         {
             return _session.Query<Cinema>()
-                    .Where(cinema => cinema.Company.Id == companyId);
+                    .Where(cinema => cinema.CompanyId == companyId);
         }
         
         [Route("api/Companies/{companyId}/Cinemas")]

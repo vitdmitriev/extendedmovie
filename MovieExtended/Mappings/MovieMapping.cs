@@ -14,11 +14,7 @@ namespace MovieExtended.Mappings
                 mapper.Generator(Generators.Guid);
             });
             Property(model => model.Name, mapper => mapper.Column("Name"));
-            ManyToOne(model => model.Cinema, mapper =>
-            {
-                mapper.Cascade(Cascade.All);
-                mapper.Column("CinemaId");
-            });
+            Property(model => model.CinemaId, mapper => mapper.Column("CinemaId"));
         }
     }
 }

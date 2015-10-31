@@ -24,7 +24,7 @@ namespace MovieExtended.Controllers.WebClient
             {
                 return session
                     .Query<Language>()
-                    .Where(lang => lang.Movie.Id == movieId);
+                    .Where(lang => lang.MovieId == movieId);
             }
         }
 
@@ -35,7 +35,7 @@ namespace MovieExtended.Controllers.WebClient
             {
                 return session
                     .Query<Language>()
-                    .Where(lang => lang.Movie.Id == movieId)
+                    .Where(lang => lang.MovieId == movieId)
                     .SingleOrDefault(lang => lang.Id == languageId);
             }
         }

@@ -9,9 +9,10 @@ namespace OriginalTrack.Controllers.AndroidClient
     public class LanguageController : ApiController
     {
         [Route("api/Session/{sessionId}/Languages")]
+        [HttpGet]
         public IEnumerable<Language> GetLanguages(Guid sessionId)
         {
-            
+            return null;
         }
     }
 }

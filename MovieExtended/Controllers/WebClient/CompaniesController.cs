@@ -10,45 +10,36 @@ namespace MovieExtended.Controllers.WebClient
 {
     public class CompaniesController : ApiController
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly ISession _session;
 
-        public CompaniesController(ISessionFactory sessionFactory)
+        public CompaniesController(ISession session)
         {
-            _sessionFactory = sessionFactory;
+            _session = session;
         }
 
         [Route("api/Companies")]
         [HttpGet]
         public IEnumerable<Company> Get()
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                return session.Query<Company>().ToArray();
-            }
+            return _session.Query<Company>().ToArray();
         }
 
         [Route("api/Companies/{companyId}")]
         [HttpGet]
         public Company Get(Guid companyId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                return session
-                    .Query<Company>()
-                    .SingleOrDefault(company => company.Id == companyId);
-            }
+            return _session
+                .Query<Company>()
+                .SingleOrDefault(company => company.Id == companyId);
         }
 
         [Route("api/Companies")]
         [HttpPost]
-        public Guid Post([FromBody]Company company)
+        public Guid Post([FromBody] Company company)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var companyId = session.Save(company);
-                session.Flush();
-                return (Guid) companyId;
-            }
+            var companyId = _session.Save(company);
+            _session.Flush();
+            return (Guid) companyId;
         }
     }
 }

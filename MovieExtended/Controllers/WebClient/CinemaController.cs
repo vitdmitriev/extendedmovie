@@ -10,45 +10,38 @@ namespace MovieExtended.Controllers.WebClient
 {
     public class CinemaController : ApiController
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly ISession _session;
 
-        public CinemaController(ISessionFactory sessionFactory)
+        public CinemaController(ISession session)
         {
-            _sessionFactory = sessionFactory;
+            _session = session;
         }
 
         [Route("api/Companies/{companyId}/Cinemas")]
         public IEnumerable<Cinema> Get(Guid companyId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                return session.Query<Cinema>()
+            return _session.Query<Cinema>()
                     .Where(cinema => cinema.Company.Id == companyId);
-            }
         }
         
         [Route("api/Companies/{companyId}/Cinemas")]
         public Guid Post(Guid companyId, [FromBody]Cinema value)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var id = session.Save(value);
-                return (Guid) id;
-            }
+            var id = _session.Save(value);
+            _session.Flush();
+            return (Guid)id;
         }
 
         [Route("api/Cinemas/{cinemaId}")]
         public void Delete(Guid cinemaId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var instance = session.Query<Cinema>()
+            var instance = _session.Query<Cinema>()
                     .SingleOrDefault(cinema => cinema.Id == cinemaId);
                 if (instance != null)
                 {
-                    session.Delete(instance);
+                    _session.Delete(instance);
                 }
-            }
+            
         }
     }
 }

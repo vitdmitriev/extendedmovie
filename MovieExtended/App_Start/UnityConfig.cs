@@ -13,9 +13,12 @@ namespace MovieExtended
             
             // register all your components with the container here
             // it is NOT necessary to register your controllers
-            container.RegisterType<ISessionFactory>(
-                new ContainerControlledLifetimeManager(), 
-                new InjectionFactory(_ => SessionFactoryConfig.CreateSessionFactory()));
+            container.RegisterType<ISession>(
+                new PerRequestLifetimeManager(),
+                new InjectionFactory(
+                    _ => SessionFactoryConfig
+                    .CreateSessionFactory()
+                    .OpenSession()));
             // e.g. container.RegisterType<ITestService, TestService>();
             
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

@@ -6,14 +6,14 @@ namespace MovieExtended.Controllers
 {
     public class FileController : ApiController
     {
-        [Route("api/File/{fileId}")]
+        [Route("api/Files/{fileId}")]
         [HttpGet]
         public HttpMessageContent Download(Guid id)
         {
             return null;
         }
 
-        [Route("api/File")]
+        [Route("api/Files")]
         [HttpPost]
         public Guid Upload([FromBody]byte[] file)
         {

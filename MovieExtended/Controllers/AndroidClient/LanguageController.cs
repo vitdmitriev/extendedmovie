@@ -7,7 +7,7 @@ namespace MovieExtended.Controllers.AndroidClient
 {
     public class LanguageController : ApiController
     {
-        [Route("api/Session/{sessionId}/Languages")]
+        [Route("api/Sessions/{sessionId}/Languages")]
         [HttpGet]
         public IEnumerable<Language> GetLanguages(Guid sessionId)
         {

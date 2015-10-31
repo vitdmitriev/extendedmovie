@@ -6,8 +6,8 @@ namespace MovieExtended.Controllers
 {
     public class RemoteController : ApiController
     {
-        [Route("api/Cinema/{cinemaId}/State/{state}/OccuredOn/{changingOccured}")]
-        [HttpGet]
+        [Route("api/Cinemas/{cinemaId}/States/{state}/OccuredOn/{changingOccured}")]
+        [HttpPost]
         public void ChangeCinemaStatus(DateTime changingOccured, Guid cinemaId, SessionState state)
         {
         }

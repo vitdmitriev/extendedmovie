@@ -7,26 +7,26 @@ namespace MovieExtended.Controllers.WebClient
 {
     public class LanguageController : ApiController
     {
-        [Route("api/Movie/{movieId}/TrackLanguage")]
+        [Route("api/Movies/{movieId}/TrackLanguages")]
         public IEnumerable<Language> Get(Guid movieId)
         {
             return null;
         }
 
-        [Route("api/Movie/{movieId}/TrackLanguage/{languageId}")]
+        [Route("api/Movies/{movieId}/TrackLanguages/{languageId}")]
         public Language Get(Guid movieId, Guid languageId)
         {
             return null;
         }
 
-        [Route("api/Movie/{movieId}/TrackLanguage")]
+        [Route("api/Movie/{movieId}/TrackLanguages")]
         public Guid Post([FromBody]Language value)
         {
             return Guid.Empty;
         }
 
-        [Route("api/Language/{languageId}")]
-        public void Delete(Guid id)
+        [Route("api/Languages/{languageId}")]
+        public void Delete(Guid languageId)
         {
         }
     }

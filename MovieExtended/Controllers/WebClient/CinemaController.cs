@@ -7,13 +7,13 @@ namespace MovieExtended.Controllers.WebClient
 {
     public class CinemaController : ApiController
     {
-        [Route("api/Company/{companyId}/Cinemas")]
+        [Route("api/Companies/{companyId}/Cinemas")]
         public IEnumerable<Cinema> Get(Guid companyId)
         {
             return null;
         }
         
-        [Route("api/Company/{companyId}/Cinemas")]
+        [Route("api/Companies/{companyId}/Cinemas")]
         public void Post(Guid companyId, [FromBody]Cinema value)
         {
         }

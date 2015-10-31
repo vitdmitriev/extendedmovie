@@ -15,11 +15,14 @@ namespace MovieExtended
             var modelMapper = new ModelMapper();
             modelMapper.AddMapping<CinemaMapping>();
             modelMapper.AddMapping<CompanyMapping>();
+            modelMapper.AddMapping<MovieMapping>();
+            modelMapper.AddMapping<LanguageMapping>();
+            modelMapper.AddMapping<FileMapping>();
             configuration.AddDeserializedMapping(modelMapper.CompileMappingForAllExplicitlyAddedEntities(), null);
 
             var factory = configuration.BuildSessionFactory();
 
-            new SchemaExport(configuration).Execute(false, true, false);
+            new SchemaUpdate(configuration).Execute(false, true);
 
             return factory;
         }

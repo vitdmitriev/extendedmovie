@@ -41,13 +41,13 @@ namespace MovieExtended.Controllers.WebClient
 
         [Route("api/Companies")]
         [HttpPost]
-        public string Post([FromBody]Company company)
+        public Guid Post([FromBody]Company company)
         {
             using (var session = _sessionFactory.OpenSession())
             {
                 var companyId = session.Save(company);
                 session.Flush();
-                return (Guid) companyId + " saved!";
+                return (Guid) companyId;
             }
         }
     }

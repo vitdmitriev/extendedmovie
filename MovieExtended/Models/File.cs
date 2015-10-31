@@ -11,11 +11,15 @@ namespace MovieExtended.Models
             FileType = fileType;
         }
 
-        public Guid Id { get; protected set; } 
+        protected File()
+        {
+        }
 
-        public Uri FilePath { get; protected set; }
+        public virtual Guid Id { get; protected set; } 
 
-        public FileType FileType { get; protected set; }
+        public virtual Uri FilePath { get; protected set; }
+
+        public virtual FileType FileType { get; protected set; }
     }
 
     public enum FileType

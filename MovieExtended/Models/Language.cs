@@ -10,11 +10,14 @@ namespace MovieExtended.Models
             Name = name;
             TrackFile = trackFile;
         }
+        protected Language() { }
 
-        public Guid Id { get; protected set; } 
+        public virtual Guid Id { get; protected set; }
 
-        public string Name { get; protected set; }
+        public virtual string Name { get; protected set; }
 
-        public File TrackFile { get; protected set; }
+        public virtual Movie Movie { get; set; }
+
+        public virtual File TrackFile { get; protected set; }
     }
 }

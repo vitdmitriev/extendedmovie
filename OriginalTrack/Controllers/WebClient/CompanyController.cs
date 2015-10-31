@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using OriginalTrack.Models;
 
-namespace OriginalTrack.Controllers.WebClient
+namespace OriginalTrack.Controllers
 {
     public class CompanyController : ApiController
     {
@@ -23,8 +20,9 @@ namespace OriginalTrack.Controllers.WebClient
         }
 
         // POST: api/Company
-        public void Post([FromBody]Company company)
+        public Guid Post([FromBody]Company company)
         {
+            throw new NotImplementedException();
         }
     }
 }

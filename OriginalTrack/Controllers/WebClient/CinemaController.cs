@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Http;
 using OriginalTrack.Models;
 
-namespace OriginalTrack.Controllers.WebClient
+namespace OriginalTrack.Controllers
 {
     public class CinemaController : ApiController
     {
-        // GET: api/Cinema
-        public IEnumerable<Cinema> Get()
-        {
-            return null;
-        }
-
         // GET: api/Cinema/5
         public Cinema Get(Guid id)
         {

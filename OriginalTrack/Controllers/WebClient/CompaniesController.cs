@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Web.Http;
 using OriginalTrack.Models;
 
-namespace OriginalTrack.Controllers
+namespace OriginalTrack.Controllers.WebClient
 {
-    public class CompanyController : ApiController
+    public class CompaniesController : ApiController
     {
         // GET: api/Company
         public IEnumerable<Company> Get()

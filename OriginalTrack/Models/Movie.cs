@@ -16,6 +16,8 @@ namespace OriginalTrack.Models
         
         public string Name { get; private set; }
 
+        public Cinema Cinemas { get; private set; }
+
         public List<Language> Languages { get; private set; } 
     }
 }

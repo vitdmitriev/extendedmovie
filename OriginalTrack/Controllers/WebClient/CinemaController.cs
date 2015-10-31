@@ -2,23 +2,23 @@
 using System.Web.Http;
 using OriginalTrack.Models;
 
-namespace OriginalTrack.Controllers
+namespace OriginalTrack.Controllers.WebClient
 {
     public class CinemaController : ApiController
     {
-        // GET: api/Cinema/5
-        public Cinema Get(Guid id)
+        [Route("api/Company/{companyId}/Cinemas")]
+        public Cinema Get(Guid companyId)
         {
             return null;
         }
-
-        // POST: api/Cinema
-        public void Post([FromBody]Cinema value)
+        
+        [Route("api/Company/{companyId}/Cinemas")]
+        public void Post(Guid companyId, [FromBody]Cinema value)
         {
         }
 
-        // DELETE: api/Cinema/5
-        public void Delete(Guid id)
+        [Route("api/Cinemas/{cinemaId}")]
+        public void Delete(Guid cinemaId)
         {
         }
     }

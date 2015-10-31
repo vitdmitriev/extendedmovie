@@ -2,17 +2,17 @@
 using System.Net.Http;
 using System.Web.Http;
 
-namespace OriginalTrack.Controllers.WebClient
+namespace OriginalTrack.Controllers
 {
     public class FileController : ApiController
     {
-        // GET: api/File/5
+        [Route("api/File/{fileId}")]
         public HttpMessageContent Download(Guid id)
         {
             return null;
         }
 
-        // POST: api/File
+        [Route("api/File")]
         public Guid Upload([FromBody]byte[] file)
         {
             return Guid.Empty;

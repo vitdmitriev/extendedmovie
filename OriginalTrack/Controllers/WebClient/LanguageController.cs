@@ -1,24 +1,32 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Web.Http;
 using OriginalTrack.Models;
 
-namespace OriginalTrack.Controllers
+namespace OriginalTrack.Controllers.WebClient
 {
     public class LanguageController : ApiController
     {
-        // GET: api/Language/5
-        public Language Get(Guid id)
+        [Route("api/Movie/{movieId}/TrackLanguage")]
+        public IEnumerable<Language> Get(Guid movieId)
         {
             return null;
         }
 
-        // POST: api/Language
+        [Route("api/Movie/{movieId}/TrackLanguage/{languageId}")]
+        public Language Get(Guid movieId, Guid languageId)
+        {
+            return null;
+        }
+
+        [Route("api/Movie/{movieId}/TrackLanguage")]
         public Guid Post([FromBody]Language value)
         {
             return Guid.Empty;
         }
 
-        // DELETE: api/Language/5
+        [Route("api/Language/{languageId}")]
         public void Delete(Guid id)
         {
         }

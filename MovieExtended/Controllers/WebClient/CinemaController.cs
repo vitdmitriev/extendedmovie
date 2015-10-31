@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using MovieExtended.Models;
 
@@ -7,7 +8,7 @@ namespace MovieExtended.Controllers.WebClient
     public class CinemaController : ApiController
     {
         [Route("api/Company/{companyId}/Cinemas")]
-        public Cinema Get(Guid companyId)
+        public IEnumerable<Cinema> Get(Guid companyId)
         {
             return null;
         }

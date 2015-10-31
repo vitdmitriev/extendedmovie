@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using MovieExtended.Models;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace MovieExtended.Controllers.WebClient
 {
@@ -15,19 +17,30 @@ namespace MovieExtended.Controllers.WebClient
             _sessionFactory = sessionFactory;
         }
 
-        // GET: api/Company
+        [Route("api/Companies")]
+        [HttpGet]
         public IEnumerable<Company> Get()
         {
-            return null;
+            using (var session = _sessionFactory.OpenSession())
+            {
+                return session.Query<Company>().ToArray();
+            }
         }
 
-        // GET: api/Company/5
-        public Company Get(Guid id)
+        [Route("api/Companies/{companyId}")]
+        [HttpGet]
+        public Company Get(Guid companyId)
         {
-            return null;
+            using (var session = _sessionFactory.OpenSession())
+            {
+                return session
+                    .Query<Company>()
+                    .SingleOrDefault(company => company.Id == companyId);
+            }
         }
 
-        // POST: api/Company
+        [Route("api/Companies")]
+        [HttpPost]
         public Guid Post([FromBody]Company company)
         {
             using (var session = _sessionFactory.OpenSession())

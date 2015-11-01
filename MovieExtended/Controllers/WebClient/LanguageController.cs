@@ -10,58 +10,52 @@ namespace MovieExtended.Controllers.WebClient
 {
     public class LanguageController : ApiController
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly ISession _session;
 
-        public LanguageController(ISessionFactory sessionFactory)
+        public LanguageController(ISession session)
         {
-            _sessionFactory = sessionFactory;
+            _session = session;
         }
 
         [Route("api/Movies/{movieId}/TrackLanguages")]
+        [HttpGet]
         public IEnumerable<Language> Get(Guid movieId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                return session
-                    .Query<Language>()
-                    .Where(lang => lang.MovieId == movieId);
-            }
+            return _session
+                .Query<Language>()
+                .Where(lang => lang.MovieId == movieId);
         }
 
         [Route("api/Movies/{movieId}/TrackLanguages/{languageId}")]
+        [HttpGet]
         public Language Get(Guid movieId, Guid languageId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                return session
-                    .Query<Language>()
-                    .Where(lang => lang.MovieId == movieId)
-                    .SingleOrDefault(lang => lang.Id == languageId);
-            }
+            return _session
+                .Query<Language>()
+                .Where(lang => lang.MovieId == movieId)
+                .SingleOrDefault(lang => lang.Id == languageId);
         }
 
-        [Route("api/Movie/{movieId}/TrackLanguages")]
-        public Guid Post([FromBody]Language language)
+        [Route("api/Movies/{movieId}/TrackLanguages")]
+        [HttpPost]
+        public Guid Post([FromBody] Language language)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var languageId = session.Save(language);
-                return (Guid) languageId;
-            }
+            var languageId = _session.Save(language);
+            _session.Flush();
+            return (Guid) languageId;
         }
 
         [Route("api/TrackLanguages/{languageId}")]
+        [HttpDelete]
         public void Delete(Guid languageId)
         {
-            using (var session = _sessionFactory.OpenSession())
+            var instance = _session
+                .Query<Language>()
+                .SingleOrDefault(lang => lang.Id == languageId);
+            if (instance != null)
             {
-                var instance = session
-                    .Query<Language>()
-                    .SingleOrDefault(lang => lang.Id == languageId);
-                if (instance != null)
-                {
-                    session.Delete(instance);
-                }
+                _session.Delete(instance);
+                _session.Flush();
             }
         }
     }

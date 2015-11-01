@@ -10,57 +10,47 @@ namespace MovieExtended.Controllers.WebClient
 {
     public class MovieController : ApiController
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly ISession _session;
 
-        public MovieController(ISessionFactory sessionFactory)
+        public MovieController(ISession session)
         {
-            _sessionFactory = sessionFactory;
+            _session = session;
         }
 
         [Route("api/Cinemas/{cinemaId}/Movies")]
         public IEnumerable<Movie> Get(Guid cinemaId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                return session
-                    .Query<Movie>()
-                    .Where(movie => movie.CinemaId == cinemaId);
-            }
+            return _session
+                .Query<Movie>()
+                .Where(movie => movie.CinemaId == cinemaId);
         }
 
         [Route("api/Cinemas/{cinemaId}/Movies/{movieId}")]
         public Movie Get(Guid cinemaId, Guid movieId)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                return session
-                    .Query<Movie>()
-                    .Where(movie => movie.CinemaId == cinemaId)
-                    .SingleOrDefault(movie => movie.Id == movieId);
-            }
+            return _session
+                .Query<Movie>()
+                .Where(movie => movie.CinemaId == cinemaId)
+                .SingleOrDefault(movie => movie.Id == movieId);
         }
 
         [Route("api/Cinemas/{cinemaId}/Movies")]
-        public Guid Post(Guid cinemaId, [FromBody]Movie movie)
+        public Guid Post(Guid cinemaId, [FromBody] Movie movie)
         {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var movieId = session.Save(movie);
-                return (Guid) movieId;
-            }
+            var movieId = _session.Save(movie);
+            _session.Flush();
+            return (Guid) movieId;
         }
 
         [Route("api/Movies/{movieId}")]
         public void Delete(Guid movieId)
         {
-            using (var session = _sessionFactory.OpenSession())
+            var instance = _session.Query<Movie>()
+                .SingleOrDefault(movie => movie.Id == movieId);
+            if (instance != null)
             {
-                var instance = session.Query<Movie>()
-                    .SingleOrDefault(movie => movie.Id == movieId);
-                if (instance != null)
-                {
-                    session.Delete(instance);
-                }
+                _session.Delete(instance);
+                _session.Flush();
             }
         }
     }

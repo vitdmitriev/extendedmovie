@@ -4,10 +4,11 @@ namespace MovieExtended.Models
 {
     public class Movie
     {
-        public Movie(Guid? id, string name)
+        public Movie(Guid? id, string name, Guid cinemaId)
         {
             Id = id;
             Name = name;
+            CinemaId = cinemaId;
         }
 
         protected Movie()

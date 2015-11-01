@@ -41,6 +41,7 @@ namespace MovieExtended.Controllers.WebClient
                 if (instance != null)
                 {
                     _session.Delete(instance);
+                    _session.Flush();
                 }
             
         }

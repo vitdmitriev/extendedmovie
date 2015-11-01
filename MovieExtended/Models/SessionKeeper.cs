@@ -11,6 +11,11 @@ namespace MovieExtended.Models
         public Guid CreateSession(Guid movieId)
         {
             var session = new Session(Guid.NewGuid(), movieId);
+            if (_timeMarks.ContainsKey(movieId))
+            {
+                session.SessionState = SessionState.Active;    
+            }
+
             _sessions.Add(session);
             return session.SessionId;
         }
@@ -40,6 +45,7 @@ namespace MovieExtended.Models
             if (state == SessionState.Closed)
             {
                 _sessions.RemoveAll(session => session.MovieId == movieId);
+                _timeMarks.Remove(movieId);
             }
             if (state == SessionState.Active)
             {

@@ -33,6 +33,8 @@ namespace MovieExtended.Controllers.AndroidClient
             return sessionId;
         }
 
+        [Route("api/Sessions/{sessionId}/StartTime")]
+        [HttpGet]
         public string GetMovieStartTime(Guid sessionId)
         {
             if (!_sessionKeeper.CheckIfSessionExists(sessionId))
@@ -44,7 +46,7 @@ namespace MovieExtended.Controllers.AndroidClient
                 throw new HttpResponseException(HttpStatusCode.NotAcceptable);
             }
             var datetime = _sessionKeeper.GetMovieStartTime(sessionId);
-            return datetime.ToString("{H:m:s:fff}");
+            return ConvertToUnixTimestamp(datetime).ToString();
         }
 
         [Route("api/Sessions/{sessionId}")]
@@ -57,6 +59,13 @@ namespace MovieExtended.Controllers.AndroidClient
             }
 
             return _sessionKeeper.GetSessionState(sessionId);
+        }
+
+        private static double ConvertToUnixTimestamp(DateTime date)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan diff = date - origin;
+            return diff.TotalMilliseconds;
         }
     }
 }

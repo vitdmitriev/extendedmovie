@@ -21,7 +21,7 @@ namespace MovieExtended.Controllers
 
         [Route("api/Movies/{movieId}/States/{state}")]
         [HttpPost]
-        public void ChangeMovieStatus(Guid movieId, SessionState state, [FromBody]DateTime changingOccured)
+        public void ChangeMovieStatus(Guid movieId, SessionState state, [FromBody]string changingOccured)
         {
             var movieExists = _session.Query<Movie>().Any(movie => movie.Id == movieId);
             if (!movieExists)
@@ -29,7 +29,8 @@ namespace MovieExtended.Controllers
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            _sessionKeeper.SetState(movieId, state, changingOccured);
+            var date = DateTime.Parse(changingOccured);
+            _sessionKeeper.SetState(movieId, state, date);
         }
     }
 }

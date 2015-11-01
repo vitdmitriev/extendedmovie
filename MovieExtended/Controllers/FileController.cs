@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using MovieExtended.Models;
@@ -34,7 +35,7 @@ namespace MovieExtended.Controllers
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(fileEntity.FilePath.AbsolutePath, FileMode.Open);
+            var stream = new FileStream(fileEntity.FilePath.LocalPath, FileMode.Open);
             result.Content = new StreamContent(stream);
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             return result;
@@ -42,18 +43,18 @@ namespace MovieExtended.Controllers
 
         [Route("api/Files")]
         [HttpPost]
-        public Guid Upload()
+        public async Task<Guid> Upload()
         {
-            var httpRequest = HttpContext.Current.Request;
-            if (httpRequest.Files.Count != 1)
-            {
-                return Guid.Empty;
-            }
+            if (!Request.Content.IsMimeMultipartContent())
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
 
-            var file = httpRequest.Files.First() as string;
-            var postedFile = httpRequest.Files[file];
-            var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
-            postedFile.SaveAs(filePath);
+            var provider = new MultipartMemoryStreamProvider();
+            await Request.Content.ReadAsMultipartAsync(provider);
+            var file = provider.Contents.FirstOrDefault();
+            var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
+            var buffer = await file.ReadAsByteArrayAsync();
+            var filePath = HttpContext.Current.Server.MapPath("~/" + filename);
+            System.IO.File.WriteAllBytes(filePath, buffer);
             var fileEntity = new File(null, new Uri(filePath), FileType.Track);
             var fileId = _session.Save(fileEntity);
             _session.Flush();

@@ -8,6 +8,7 @@ namespace MovieExtended.Mappings
     {
         public FileMapping()
         {
+            Table("Files");
             Id(model => model.Id, mapper =>
             {
                 mapper.Generator(Generators.Guid);

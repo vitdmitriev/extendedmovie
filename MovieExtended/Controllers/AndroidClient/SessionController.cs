@@ -33,6 +33,20 @@ namespace MovieExtended.Controllers.AndroidClient
             return sessionId;
         }
 
+        public string GetMovieStartTime(Guid sessionId)
+        {
+            if (!_sessionKeeper.CheckIfSessionExists(sessionId))
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
+            if (_sessionKeeper.GetSessionState(sessionId) != SessionState.Active)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotAcceptable);
+            }
+            var datetime = _sessionKeeper.GetMovieStartTime(sessionId);
+            return datetime.ToString("{H:m:s:fff}");
+        }
+
         [Route("api/Sessions/{sessionId}")]
         [HttpGet]
         public SessionState GetSessionState(Guid sessionId)

@@ -1,15 +1,35 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
 using System.Web.Http;
 using MovieExtended.Models;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace MovieExtended.Controllers
 {
     public class RemoteController : ApiController
     {
-        [Route("api/Cinemas/{cinemaId}/States/{state}/OccuredOn/{changingOccured}")]
-        [HttpPost]
-        public void ChangeCinemaStatus(DateTime changingOccured, Guid cinemaId, SessionState state)
+        private readonly ISession _session;
+        private readonly SessionKeeper _sessionKeeper;
+
+        public RemoteController(ISession session, SessionKeeper sessionKeeper)
         {
+            _session = session;
+            _sessionKeeper = sessionKeeper;
+        }
+
+        [Route("api/Movies/{movieId}/States/{state}")]
+        [HttpPost]
+        public void ChangeMovieStatus(Guid movieId, SessionState state, [FromBody]DateTime changingOccured)
+        {
+            var movieExists = _session.Query<Movie>().Any(movie => movie.Id == movieId);
+            if (!movieExists)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            _sessionKeeper.SetState(movieId, state, changingOccured);
         }
     }
 }

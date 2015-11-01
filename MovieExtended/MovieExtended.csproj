@@ -118,7 +118,7 @@
     <Compile Include="Controllers\RemoteController.cs" />
     <Compile Include="Controllers\WebClient\CinemaController.cs" />
     <Compile Include="Controllers\WebClient\CompaniesController.cs" />
-    <Compile Include="Controllers\WebClient\LanguageController.cs" />
+    <Compile Include="Controllers\WebClient\LanguagesController.cs" />
     <Compile Include="Controllers\WebClient\MovieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -133,6 +133,7 @@
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Session.cs" />
     <Compile Include="Models\SessionKeeper.cs" />
     <Compile Include="Models\SessionState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

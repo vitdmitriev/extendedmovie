@@ -1,5 +1,6 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
+using MovieExtended.Models;
 using NHibernate;
 using Unity.WebApi;
 
@@ -20,6 +21,7 @@ namespace MovieExtended
                 new PerRequestLifetimeManager(),
                 new InjectionFactory(
                     c => c.Resolve<ISessionFactory>().OpenSession()));
+            container.RegisterInstance(typeof (SessionKeeper), new SessionKeeper(), new ContainerControlledLifetimeManager());
             // e.g. container.RegisterType<ITestService, TestService>();
             
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

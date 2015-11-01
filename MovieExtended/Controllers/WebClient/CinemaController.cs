@@ -24,6 +24,14 @@ namespace MovieExtended.Controllers.WebClient
             return _session.Query<Cinema>()
                     .Where(cinema => cinema.CompanyId == companyId);
         }
+
+        [Route("api/Companies/{companyId}/Cinemas/{cinemaId}")]
+        public Cinema Get(Guid companyId, Guid cinemaId)
+        {
+            return _session.Query<Cinema>()
+                    .Where(cinema => cinema.CompanyId == companyId)
+                    .SingleOrDefault(cinema => cinema.Id == cinemaId);
+        }
         
         [Route("api/Companies/{companyId}/Cinemas")]
         public Guid Post(Guid companyId, [FromBody]Cinema value)

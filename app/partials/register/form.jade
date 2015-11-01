@@ -1,0 +1,14 @@
+div.register
+  h1.register__form-title Регистрация компании
+  form(ng-submit='submitForm()')
+    div.register__form
+      div.input-field
+        input.input.input-field__input(ng-model='register.Name', type='text', placeholder='Имя компании')
+      div.input-field
+        input.input.input-field__input(ng-model='register.Website', type='url', placeholder='Адрес компании')
+      div.input-field
+        input.input.input-field__input(ng-model='Password', type='password', placeholder='Пароль')
+      div.input-field
+        input.input.input-field__input(ng-model='ConfirmPassword', type='password', placeholder='Пароль еще раз')
+      div.input-field
+        input.button.input-field__button(type='submit', value='Начать', ng-disabled='submitted')

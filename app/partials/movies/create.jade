@@ -1,0 +1,23 @@
+include ../mixins/mixins
+div.page.page__type_white
+   div.page__inner.header__fix
+      own-header
+      div.page__content
+         div.company__content
+            div.register
+               h1.register__form-title Создание языка
+               form(ng-submit='submitForm()')
+                  div.register__form
+                     div.input-field
+                        input.input.input-field__input(ng-model='language.Name', type='text', placeholder='Имя языка')
+                     div.input-field
+                        input.input.input-field__input(ng-model='language.TrackFileId', type='hidden')
+
+                     div.input-field(ng-if='!language.TrackFileId')
+                        div.upload-progress(ng-if='uploading')
+                           div.upload-value(style="width: {{progress + '%'}}")
+                        button.button(upload-file, ng-disabled='uploading') Загрузить файл
+
+                     div.input-field
+                        input.button.input-field__button(type='submit', value='Создать', ng-disabled='uploading || !language.Name || !language.TrackFileId')
+                        div.success-uploaded(ng-if='language.TrackFileId') Файл загружен

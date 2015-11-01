@@ -1,0 +1,15 @@
+include ../mixins/mixins
+
+div.page.page__type_white
+  div.page__inner.header__fix
+    own-header
+    div.page__content
+      div.company__content
+        div.register
+          h1.register__form-title Создание нового фильма
+          form(ng-submit='submitForm()')
+            div.register__form
+              div.input-field
+                input.input.input-field__input(ng-model='movie.Name', type='text', placeholder='Название кино')
+              div.input-field
+                input.button.input-field__button(type='submit', value='Создать', ng-disabled='!movie.Name')

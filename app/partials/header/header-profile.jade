@@ -1,0 +1,5 @@
+div.header-profile(ng-cloak, ng-if='company.Name')
+  div.header-profile__photo
+    div.header-profile__photo-layer(style='background-image: url({{company.PhotoUri}})')
+  div.header-profile__name
+    span.header-profile__name-span(ng-bind='company.Name')

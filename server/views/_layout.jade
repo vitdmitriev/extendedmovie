@@ -1,0 +1,8 @@
+include mixins/mixins
+  
+doctype html
+html(ng-controller='PageCtrl')
+  head
+    include index/head
+  body(ng-controller='AppCtrl')
+    block content

@@ -1,0 +1,24 @@
+include ../mixins/mixins
+
+div.page.page__type_white
+  div.page__inner.header__fix
+    own-header
+    div.page__content
+      div.content-spin__layer(ng-if='cinemaLoading')
+        div.search-spin-layer_
+          div.search-spin
+      div.company__content
+        div(ng-if='!cinemaLoading && !cinemas.length')
+          div.landing-title.page__company
+            h1 Добро пожаловать!
+            h3 Чтобы продолжить, создайте Ваш первый кинотеатр.
+          div.company__inner
+            div.company__button
+              a.button.button-large.theme-green(ng-href='#!/company/create') Приступить
+        div(ng-if='!cinemaLoading && cinemas.length > 0')
+          div.company__cinema-list
+            a.company__cinema-item(ng-repeat='item in cinemas', ng-href='#!/cinemas/{{item.Id}}')
+              div.cinema__name(ng-bind='item.Name')
+              div.cinemas__address(ng-bind='item.Address')
+            div.company__button(style='margin-top: 24px; padding: 38px 24px 15px; border-top: 1px solid #ccc;')
+              a.button.button-large.theme-green(ng-href="{{'#!/company/create'}}") Добавить

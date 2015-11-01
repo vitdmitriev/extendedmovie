@@ -1,0 +1,24 @@
+include ../mixins/mixins
+
+div.page.page__type_white
+  div.page__inner.header__fix
+    own-header
+    div.page__content
+      div.content-spin__layer(ng-if='dataLoading')
+        div.search-spin-layer_
+          div.search-spin
+      div.company__content
+        div(ng-if='!dataLoading && !languages.length')
+          div.landing-title.page__company
+            h3 Теперь создайте язык к фильму
+          div.company__inner
+            div.company__button
+              a.button.button-large.theme-green(ng-href="{{'#!/cinemas/' + cinemaId + '/movies/' + movieId + '/create'}}") ОК
+        div(ng-if='!dataLoading && languages.length')
+          h1.title Языки
+          h2.subtitle(ng-cloak) Фильм «{{movie.Name}}»
+          div.company__cinema-list
+            a.company__cinema-item(ng-repeat='item in languages', ng-href="{{'#!/movies/' + movie.Id + '/tracklanguage/' + item.Id}}")
+              div.cinema__name(ng-bind='item.Name')
+            div.company__button(style='margin-top: 24px; padding: 38px 24px 15px; border-top: 1px solid #ccc;')
+              a.button.button-large.theme-green(ng-href="{{'#!/cinemas/' + cinemaId + '/movies/' + movieId + '/create'}}") Добавить
